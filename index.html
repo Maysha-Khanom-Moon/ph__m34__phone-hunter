@@ -49,6 +49,21 @@
         <div id="show-all-container" class="mt-5 hidden text-center my-10">
             <button onclick="handleShowAll()" class="btn btn-accent">Show all</button>
         </div>
+
+
+        <!-- show modal details -->
+        <section>
+            <!-- You can open the modal using ID.showModal() method -->
+            <dialog id="my_modal_3" class="modal">
+                <div class="modal-box gap-y-2 p-10">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 id="show-detail-phone-name" class="font-bold text-2xl"></h3>
+                    <div id="show-phone-detail" class="py-4 text-lg"></div>
+                </div>
+            </dialog>
+        </section>
     </main>
 
     <!-- scripts -->
