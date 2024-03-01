@@ -1,10 +1,10 @@
-const loadPhone = async (searchText = 'iphone') => {
+const loadPhone = async (searchText = 'iphone', isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
     const phones = data.data;
 
     // console.log(data);
-    displayPhones(phones);
+    displayPhones(phones, isShowAll);
 }
 
 
@@ -12,18 +12,17 @@ const loadPhone = async (searchText = 'iphone') => {
 const phoneContainer = document.getElementById('phone-container')
 const showAllCard = document.getElementById('show-all-container');
 
-const displayPhones = phones => {
+const displayPhones = (phones, isShowAll) => {
     console.log(phones);
     phoneContainer.innerHTML = '';
 
-    if(phones.length > 8) {
+    if(phones.length > 8 && !isShowAll) {
         showAllCard.classList.remove('hidden');
+        phones = phones.slice(0, 8);
     }
     else {
         showAllCard.classList.add('hidden');
     }
-
-    phones = phones.slice(0, 8);
 
     phones.forEach(phone => {
         // console.log(phone);
@@ -55,14 +54,14 @@ const displayPhones = phones => {
 
 
 // handle search
-function handleSearch() {
+function handleSearch(isShowAll) {
     // show spinner
     toggleLoading(true);
-    
+
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
 
-    loadPhone(searchText)
+    loadPhone(searchText, isShowAll)
 }
 
 
@@ -76,5 +75,9 @@ const toggleLoading = (isLoading) => {
     }
 }
 
+// handle show all
+function handleShowAll() {
+    handleSearch(true);
+}
 
 loadPhone();
