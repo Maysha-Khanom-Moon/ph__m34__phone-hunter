@@ -10,10 +10,20 @@ const loadPhone = async (searchText = 'iphone') => {
 
 // 1. select parent div
 const phoneContainer = document.getElementById('phone-container')
+const showAllCard = document.getElementById('show-all-container');
 
 const displayPhones = phones => {
     console.log(phones);
     phoneContainer.innerHTML = '';
+
+    if(phones.length > 8) {
+        showAllCard.classList.remove('hidden');
+    }
+    else {
+        showAllCard.classList.add('hidden');
+    }
+
+    phones = phones.slice(0, 8);
 
     phones.forEach(phone => {
         // console.log(phone);
@@ -36,16 +46,34 @@ const displayPhones = phones => {
 
         // 4. append child
         phoneContainer.appendChild(phoneCard);
+
+
+        // hidden spinner
+        toggleLoading(false);
     })
 }
 
 
 // handle search
 function handleSearch() {
+    // show spinner
+    toggleLoading(true);
+    
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
 
     loadPhone(searchText)
+}
+
+
+const toggleLoading = (isLoading) => {
+    const loading = document.getElementById('loading');
+
+    if(isLoading) {
+        loading.classList.remove('hidden');
+    } else {
+        loading.classList.add('hidden');
+    }
 }
 
 
